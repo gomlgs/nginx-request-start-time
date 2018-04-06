@@ -1,0 +1,22 @@
+ngx_addon_name=ngx_request_start_time_module;
+
+REQUEST_START_TIME_DEPS=" \
+        $ngx_addon_dir/src/ngx_request_start_time_module.h \
+        "
+
+REQUEST_START_TIME_SRCS=" \
+        $ngx_addon_dir/src/ngx_request_start_time_module.c \
+        "
+
+if test -n "$ngx_module_link"; then
+    ngx_module_type=HTTP
+    ngx_module_name=$ngx_addon_name
+    ngx_module_incs=$ngx_addon_dir
+    ngx_module_deps=$REQUEST_START_TIME_DEPS
+    ngx_module_srcs=$REQUEST_START_TIME_SRCS
+    . auto/module
+else
+    HTTP_MODULES="$HTTP_MODULES $ngx_addon_name"
+    NGX_ADDON_SRCS="$NGX_ADDON_SRCS $REQUEST_START_TIME_DEPS"
+    NGX_ADDON_DEPS="$NGX_ADDON_DEPS $REQUEST_START_TIME_SRCS"
+fi
